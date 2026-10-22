@@ -1,26 +1,16 @@
 #include <stdio.h>
 
-int main()
-{
-    int arr[100], n, i;
-    int *ptr;
+int main() {
+    int a[5], i;
+    int *p = a;
 
-    printf("Enter number of elements: ");
-    scanf("%d",&n);
+    printf("Enter 5 elements: ");
+    for (i = 0; i < 5; i++)
+        scanf("%d", p + i);
 
-    printf("Enter elements:\n");
-    for(i=0;i<n;i++)
-        scanf("%d",&arr[i]);
-
-    ptr = &arr[n-1];
-
-    printf("Array in Reverse Order:\n");
-
-    for(i=0;i<n;i++)
-    {
-        printf("%d ", *ptr);
-        ptr--;
-    }
+    printf("Array in reverse order: ");
+    for (i = 4; i >= 0; i--)
+        printf("%d ", *(p + i));
 
     return 0;
 }
