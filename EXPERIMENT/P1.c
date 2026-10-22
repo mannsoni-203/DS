@@ -1,79 +1,86 @@
 #include <stdio.h>
+#define MAX 100
 
-int main()
-{
-    int arr[100], n, i, choice, pos, value, key, found;
+int main() {
+    int a[MAX], n, i, pos, value, key, choice;
 
     printf("Enter number of elements: ");
     scanf("%d", &n);
 
-    printf("Enter array elements:\n");
-    for(i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+    printf("Enter array elements: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
 
-    do
-    {
-        printf("\n--- ARRAY MENU ---");
-        printf("\n1. Insertion");
-        printf("\n2. Deletion");
-        printf("\n3. Traversal");
-        printf("\n4. Search");
-        printf("\n5. Exit");
-        printf("\nEnter choice: ");
+    do {
+        printf("\n1.Insert  2.Delete  3.Traverse  4.Search  5.Exit\n");
+        printf("Enter choice: ");
         scanf("%d", &choice);
 
-        switch(choice)
-        {
-            case 1:
-                printf("Enter position: ");
-                scanf("%d", &pos);
-                printf("Enter value: ");
-                scanf("%d", &value);
-
-                for(i = n; i >= pos; i--)
-                    arr[i] = arr[i-1];
-
-                arr[pos-1] = value;
-                n++;
+        switch (choice) {
+        case 1:
+            if (n == MAX) {
+                printf("Array is full.\n");
                 break;
+            }
+            printf("Enter position and value: ");
+            scanf("%d%d", &pos, &value);
 
-            case 2:
-                printf("Enter position to delete: ");
-                scanf("%d", &pos);
-
-                for(i = pos-1; i < n-1; i++)
-                    arr[i] = arr[i+1];
-
-                n--;
+            if (pos < 1 || pos > n + 1) {
+                printf("Invalid position.\n");
                 break;
+            }
 
-            case 3:
-                printf("Array Elements: ");
-                for(i = 0; i < n; i++)
-                    printf("%d ", arr[i]);
+            for (i = n; i >= pos; i--)
+                a[i] = a[i - 1];
+
+            a[pos - 1] = value;
+            n++;
+            printf("Element inserted.\n");
+            break;
+
+        case 2:
+            printf("Enter position to delete: ");
+            scanf("%d", &pos);
+
+            if (pos < 1 || pos > n) {
+                printf("Invalid position.\n");
                 break;
+            }
 
-            case 4:
-                printf("Enter element to search: ");
-                scanf("%d", &key);
+            for (i = pos - 1; i < n - 1; i++)
+                a[i] = a[i + 1];
 
-                found = 0;
-                for(i = 0; i < n; i++)
-                {
-                    if(arr[i] == key)
-                    {
-                        printf("Found at position %d", i+1);
-                        found = 1;
-                        break;
-                    }
-                }
+            n--;
+            printf("Element deleted.\n");
+            break;
 
-                if(found == 0)
-                    printf("Element not found");
-                break;
+        case 3:
+            printf("Array: ");
+            for (i = 0; i < n; i++)
+                printf("%d ", a[i]);
+            printf("\n");
+            break;
+
+        case 4:
+            printf("Enter element to search: ");
+            scanf("%d", &key);
+
+            for (i = 0; i < n && a[i] != key; i++);
+
+            if (i < n)
+                printf("Element found at position %d\n", i + 1);
+            else
+                printf("Element not found.\n");
+            break;
+
+        case 5:
+            printf("Exiting...\n");
+            break;
+
+        default:
+            printf("Invalid choice.\n");
         }
-
-    } while(choice != 5);
+    } while (choice != 5);
 
     return 0;
 }
